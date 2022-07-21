@@ -38,6 +38,9 @@ runs:
         dist/*
     shell: bash -l {0}
 
+  - name: Install click
+    run: pip install click
+
   - name: Clean up old wheels on Anaconda.org
     run: |
       python ${{ github.action_path }}/remove_old_wheels.py \

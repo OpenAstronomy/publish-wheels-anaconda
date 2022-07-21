@@ -3,7 +3,7 @@
 import sys
 
 import click
-# from binstar_client.utils import get_server_api
+from binstar_client.utils import get_server_api
 
 
 @click.command()
