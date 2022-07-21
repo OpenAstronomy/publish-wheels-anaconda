@@ -35,6 +35,7 @@ runs:
       conda install --yes anaconda-client
       anaconda --token ${{ inputs.anaconda_token }} upload \
         --user ${{ inputs.anaconda_user }} \
+        --skip-existing \
         dist/*
     shell: bash -l {0}
 
