@@ -1,0 +1,21 @@
+# This workflow is used to test the action
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Test action
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: build
+        uses: OpenAstronomy/build-python-dist@v1
+      - id: upload
+        uses: ./
+        with:
+          anaconda_user: OpenAstronomy
+          anaconda_package: test_package
+          keep_n_latest: 10
