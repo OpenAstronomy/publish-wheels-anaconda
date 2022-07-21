@@ -14,14 +14,16 @@ inputs:
     required: true
     default: ''
     type: string
+  anaconda_token:
+    description: Anaconda.org token
+    required: true
+    default: ''
+    type: string
   keep_n_latest:
     description: If specified, only this number of the most recent versions are kept
     required: true
     default: ''
     type: number
-secrets:
-  anaconda_token:
-    required: true
 runs:
   using: "composite"
   steps:
@@ -35,7 +37,7 @@ runs:
   - name: Upload to Anaconda.org
     run: |
       conda install --yes anaconda-client
-      anaconda --token ${{ secrets.anaconda_token }} upload \
+      anaconda --token ${{ inputs.anaconda_token }} upload \
         --user ${{ inputs.anaconda_user }} \
         dist/*
     shell: bash -l {0}
@@ -43,7 +45,7 @@ runs:
   - name: Clean up old wheels on Anaconda.org
     run: |
       python remove_old_wheels.py \
-        --token ${{ secrets.anaconda_token }} \
+        --token ${{ inputs.anaconda_token }} \
         --user ${{ inputs.anaconda_user }} \
         --package ${{ inputs.anaconda_package }} \
         --keep ${{ inputs.keep_n_latest }}
