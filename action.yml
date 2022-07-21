@@ -40,6 +40,7 @@ runs:
 
   - name: Install click
     run: pip install click
+    shell: bash -l {0}
 
   - name: Clean up old wheels on Anaconda.org
     run: |
