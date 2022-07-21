@@ -44,4 +44,5 @@ runs:
         --user ${{ inputs.anaconda_user }} \
         --package ${{ inputs.anaconda_package }} \
         --keep ${{ inputs.keep_n_latest }}
+    shell: bash -l {0}
 
