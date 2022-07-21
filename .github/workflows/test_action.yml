@@ -8,7 +8,6 @@ jobs:
   test:
     name: Test action
     runs-on: ubuntu-20.04
-
     steps:
       - uses: actions/checkout@v2
       - id: build
@@ -16,6 +15,7 @@ jobs:
       - id: upload
         uses: ./
         with:
-          anaconda_user: OpenAstronomy
-          anaconda_package: test_package
-          keep_n_latest: 10
+          anaconda_user: OpenAstronomyCI
+          anaconda_package: test-package
+          anaconda_token: ${{ secrets.anaconda_token }}
+          keep_n_latest: 2
