@@ -21,8 +21,8 @@ inputs:
     type: string
   keep_n_latest:
     description: If specified, only this number of the most recent versions are kept
-    required: true
-    default: ''
+    required: false
+    default: -1
     type: number
 runs:
   using: "composite"

@@ -21,3 +21,18 @@ jobs:
           anaconda_package: test-package
           anaconda_token: ${{ secrets.anaconda_token }}
           keep_n_latest: 2
+  test_no_keep:
+    name: Test action (no keep option specified)
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - id: build
+        uses: OpenAstronomy/build-python-dist@v1
+        with:
+          pure_python_wheel: true
+      - id: upload
+        uses: ./
+        with:
+          anaconda_user: OpenAstronomyCI
+          anaconda_package: test-package
+          anaconda_token: ${{ secrets.anaconda_token }}
