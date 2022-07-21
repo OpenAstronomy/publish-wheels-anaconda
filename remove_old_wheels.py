@@ -16,11 +16,11 @@ def remove(user, package, keep, token, dry):
         return
 
     api = get_server_api(token=token)
-    package = api.package(user, package)
+    pkg = api.package(user, package)
 
     # Find versions for which wheels are available
     pypi_versions = set()
-    for file_info in package["files"]:
+    for file_info in pkg["files"]:
         if file_info["type"] == "pypi":
             pypi_versions.add(file_info["version"])
     pypi_versions = sorted(pypi_versions)
@@ -29,7 +29,7 @@ def remove(user, package, keep, token, dry):
     versions_to_remove = pypi_versions[:-keep]
 
     # Remove the files
-    for file_info in package["files"]:
+    for file_info in pkg["files"]:
         if file_info["version"] in versions_to_remove:
             print(f"Removing {file_info['basename']}")
             if not dry:
