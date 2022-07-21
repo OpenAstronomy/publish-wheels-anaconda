@@ -12,13 +12,13 @@ from binstar_client.utils import get_server_api
 @click.option('--keep', default=-1)
 @click.option('--token')
 @click.option('--dry', default=False)
-def remove(org, package, keep, token, dry):
+def remove(user, package, keep, token, dry):
 
     if keep < 0:
         return
 
     api = get_server_api(token=token)
-    package = api.package(org, package)
+    package = api.package(user, package)
 
     # Find versions for which wheels are available
     pypi_versions = set()
@@ -36,8 +36,7 @@ def remove(org, package, keep, token, dry):
             print(f"Removing {file_info['basename']}")
             if not dry:
                 api.remove_dist(
-                    "astropy",
-                    "astropy",
+                    user, package,
                     file_info["version"],
                     basename=file_info["basename"]
                 )
