@@ -19,6 +19,9 @@ inputs:
     required: true
     default: ''
     type: number
+secrets:
+  anaconda_token:
+    required: true
 runs:
   using: "composite"
   steps:
