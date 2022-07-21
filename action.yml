@@ -28,10 +28,6 @@ runs:
   using: "composite"
   steps:
 
-  - uses: actions/checkout@v2
-    with:
-      fetch-depth: 0
-
   - uses: conda-incubator/setup-miniconda@v2
 
   - name: Upload to Anaconda.org
@@ -44,10 +40,9 @@ runs:
 
   - name: Clean up old wheels on Anaconda.org
     run: |
-      python remove_old_wheels.py \
+      python ${{ github.action_path }}/remove_old_wheels.py \
         --token ${{ inputs.anaconda_token }} \
         --user ${{ inputs.anaconda_user }} \
         --package ${{ inputs.anaconda_package }} \
         --keep ${{ inputs.keep_n_latest }}
     shell: bash -l {0}
-
