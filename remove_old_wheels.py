@@ -1,17 +1,15 @@
 # Remove all but the latest N versions from wheels on Anaconda.org
 
-import sys
-
 import click
 from binstar_client.utils import get_server_api
 
 
 @click.command()
-@click.option('--user')
-@click.option('--package')
-@click.option('--keep', default=-1)
-@click.option('--token')
-@click.option('--dry', default=False)
+@click.option("--user")
+@click.option("--package")
+@click.option("--keep", default=-1)
+@click.option("--token")
+@click.option("--dry", default=False)
 def remove(user, package, keep, token, dry):
 
     if keep < 0:
@@ -36,10 +34,11 @@ def remove(user, package, keep, token, dry):
             print(f"Removing {file_info['basename']}")
             if not dry:
                 api.remove_dist(
-                    user, package,
-                    file_info["version"],
-                    basename=file_info["basename"]
+                    user, package, file_info["version"], basename=file_info["basename"]
                 )
+        else:
+            print(f"Keeping {file_info['basename']}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     remove()
