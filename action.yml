@@ -10,8 +10,8 @@ inputs:
     default: ''
     type: string
   anaconda_package:
-    description: Anaconda.org package
-    required: true
+    description: Anaconda.org package (required if keep_n_latest is specified)
+    required: false
     default: ''
     type: string
   anaconda_token:
