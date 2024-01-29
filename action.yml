@@ -28,13 +28,13 @@ runs:
   using: "composite"
   steps:
 
-  - uses: conda-incubator/setup-miniconda@v2
+  - uses: conda-incubator/setup-miniconda@v3
 
   - name: Upload to Anaconda.org
     run: |
       conda install --yes anaconda-client
-      anaconda --token ${{ inputs.anaconda_token }} upload \
-        --user ${{ inputs.anaconda_user }} \
+      anaconda --token "${{ inputs.anaconda_token }}" upload \
+        --user "${{ inputs.anaconda_user }}" \
         --skip-existing \
         dist/*
     shell: bash -l {0}
@@ -46,8 +46,8 @@ runs:
   - name: Clean up old wheels on Anaconda.org
     run: |
       python ${{ github.action_path }}/remove_old_wheels.py \
-        --token ${{ inputs.anaconda_token }} \
-        --user ${{ inputs.anaconda_user }} \
-        --package ${{ inputs.anaconda_package }} \
+        --token "${{ inputs.anaconda_token }}" \
+        --user "${{ inputs.anaconda_user }}" \
+        --package "${{ inputs.anaconda_package }}" \
         --keep ${{ inputs.keep_n_latest }}
     shell: bash -l {0}
