@@ -4,9 +4,20 @@ from datetime import datetime, timezone, timedelta
 import click
 from binstar_client.utils import get_server_api
 
-UPLOAD_TIME_FMT = r"%Y-%m-%d %H:%M:%S.%f%z"  # e.g., 2018-10-19 19:03:58.717000+00:00
+UPLOAD_TIME_FMT_V1 = r"%Y-%m-%d %H:%M:%S.%f%z"  # e.g., 2018-10-19 19:03:58.717000+00:00
+UPLOAD_TIME_FMT_V2 = r"%Y-%m-%d %H:%M:%S%z"     # e.g., 2018-10-19 19:03:58+00:00
 MIN_DATETIME = datetime.min.replace(tzinfo=timezone(timedelta(hours=0)))
 
+def _parse_upload_time(upload_time: str) -> datetime:
+    for fmt in (UPLOAD_TIME_FMT_V1, UPLOAD_TIME_FMT_V2):
+        try:
+            return datetime.strptime(upload_time, fmt)
+        except ValueError:
+            continue
+    raise ValueError(
+        f"Failed to parse upload time {upload_time!r} "
+        "(didn't match any known format)"
+    )
 
 @click.command()
 @click.option("--user")
@@ -27,10 +38,7 @@ def remove(user, package, keep, token, dry):
     for file_info in pkg["files"]:
         if file_info["type"] == "pypi":
             version = file_info["version"]
-            upload_time = datetime.strptime(
-                file_info["upload_time"],
-                UPLOAD_TIME_FMT,
-            )
+            upload_time = _parse_upload_time(file_info["upload_time"])
             # Keep date of version's most recent upload
             pypi_versions[version] = max(
                 pypi_versions.get(version, MIN_DATETIME),
