@@ -1,4 +1,5 @@
 # Remove all but the latest N versions from wheels on Anaconda.org
+import re
 from datetime import datetime, timezone, timedelta
 
 import click
@@ -14,6 +15,10 @@ def _parse_upload_time(upload_time: str) -> datetime:
             return datetime.strptime(upload_time, fmt)
         except ValueError:
             continue
+    if (match := re.match(r"\d{4}-\d{2}-\d{2}", upload_time)) is not None:
+        # fallback solution: renounce everything but the date if it can be saved
+        return datetime.strftime(match.group())
+
     raise ValueError(
         f"Failed to parse upload time {upload_time!r} "
         "(didn't match any known format)"
