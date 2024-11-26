@@ -9,7 +9,7 @@ jobs:
     name: Test action
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - id: build
         uses: OpenAstronomy/build-python-dist@v1
         with:
@@ -25,7 +25,7 @@ jobs:
     name: Test action (no keep option specified)
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - id: build
         uses: OpenAstronomy/build-python-dist@v1
         with:
