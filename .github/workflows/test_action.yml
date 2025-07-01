@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
       - id: build
-        uses: OpenAstronomy/build-python-dist@bbb0e1c5b132893999ea56d77bd4b526e0097c7d  # v1.0.1
+        uses: OpenAstronomy/build-python-dist@9a4b2bd6bda5c48ef3c12b53504ee2263ed032e3  # v1.1.0
         with:
           pure_python_wheel: true
       - id: upload
@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
       - id: build
-        uses: OpenAstronomy/build-python-dist@bbb0e1c5b132893999ea56d77bd4b526e0097c7d  # v1.0.1
+        uses: OpenAstronomy/build-python-dist@9a4b2bd6bda5c48ef3c12b53504ee2263ed032e3  # v1.1.0
         with:
           pure_python_wheel: true
       - id: upload
