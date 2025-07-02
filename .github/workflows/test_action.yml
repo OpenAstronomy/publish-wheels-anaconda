@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     name: Test action
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
       - id: build
@@ -23,7 +23,7 @@ jobs:
           keep_n_latest: 2
   test_no_keep:
     name: Test action (no keep option specified)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
       - id: build
